@@ -1,51 +1,117 @@
-body {
+body,
+html {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-    color: #333;
     margin: 0;
-    height: 100vh;
+    padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    /* Align to the top */
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    overflow-y: auto;
 }
 
 .container {
     background: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
+    margin-top: 20px;
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 26px;
     font-weight: bold;
+    color: #007bff;
 }
 
-input[type="file"],
+.custom-upload {
+    position: relative;
+    border: 2px dashed #007bff;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.custom-upload:hover {
+    border-color: #0056b3;
+    background-color: #eef6ff;
+}
+
+.upload-box {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.upload-box i {
+    margin-right: 8px;
+    color: #ffc107;
+}
+
+.upload-box:hover {
+    background-color: #0056b3;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.upload-hint {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #555;
+    font-style: italic;
+    text-align: center;
+    word-wrap: break-word;
+}
+
 input[type="number"] {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px; 
-    margin-bottom: 20px; 
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; 
-    font-size: 16px; 
+    box-sizing: border-box;
+    font-size: 16px;
     background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input,
-button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 button {
@@ -53,38 +119,82 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 18px;
+    padding: 15px 25px;
+    width: 100%;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
     background: #218838;
+    transform: translateY(-2px);
 }
 
-.output img {
+button:active {
+    background: #1e7e34;
+    transform: translateY(0);
+}
+
+.output {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.images-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.image-block {
+    text-align: center;
+    width: 48%;
+}
+
+.image-block img {
     max-width: 100%;
-    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.image-block h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
 }
 
 .delete-button {
     background: #dc3545;
     color: white;
+    width: 100%;
+    max-width: 400px;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .delete-button:hover {
     background: #c82333;
+    transform: translateY(-2px);
+}
+
+.delete-button:active {
+    background: #a71d2a;
+    transform: translateY(0);
 }
 
 .download-button {
     display: inline-block;
     background-color: #007bff;
-    /* Warna biru cerah */
     color: white;
-    padding: 10px 20px;
+    padding: 12px 20px;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
@@ -95,47 +205,11 @@ button:hover {
 
 .download-button:hover {
     background-color: #0056b3;
-    /* Warna biru yang lebih gelap saat hover */
     transform: translateY(-2px);
-    /* Efek mengangkat tombol saat hover */
     text-decoration: none;
 }
 
 .download-button:active {
     background-color: #003d80;
-    /* Warna lebih gelap saat tombol ditekan */
     transform: translateY(0);
-    /* Tombol kembali ke posisi awal */
-}
-
-.flash-messages {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    font-size: 16px;
-}
-
-.flash-messages li {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
-}
-
-.flash-messages .success {
-    background: #28a745;
-}
-
-.flash-messages .error {
-    background: #dc3545;
-}
-
-/* Hilangkan pesan secara otomatis */
-.flash-messages li.hide {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
 }
