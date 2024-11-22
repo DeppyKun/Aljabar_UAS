@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Rotation</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rotate Your Image</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="image">Upload gambar disini:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            
+            <label for="degrees">Tulis derajat rotasi(degrees):</label>
+            <input type="number" id="degrees" name="degrees" placeholder="e.g., 90" required>
+            
+            <button type="submit">Rotate</button>
+        </form>
+        
+        {% if rotated_image %}
+            <div class="output">
+                <h2>Rotated Image:</h2>
+                <img src="{{ rotated_image }}" alt="Rotated Image">
+                <a href="{{ rotated_image }}" download="rotated_image.png" class="download-button">Download</a>
+
+                <form action="/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="image_path" value="{{ rotated_image }}">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+        {% endif %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <script>
+        // Hilangkan flash message setelah 5 detik
+        setTimeout(() => {
+            const messages = document.querySelectorAll('.flash-messages li');
+            messages.forEach(message => {
+                message.classList.add('hide');
+                setTimeout(() => message.remove(), 500); // Hapus elemen setelah transisi
+            });
+        }, 1000);
+    </script>
+    
+
+</body>
+</html>
